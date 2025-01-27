@@ -52,7 +52,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-plus-circle"></i></span>
                         <input type="text" class="form-control form-control-lg" placeholder="새로운 할 일을 입력하세요"
-                            aria-label="새로운 할 일" aria-describedby="button-addon2" name="content" value="1">
+                            aria-label="새로운 할 일" aria-describedby="button-addon2" name="content">
                         <button class="btn btn-custom btn-lg" id="button-addon2">
                             <i class="bi bi-plus-lg me-1"></i>추가
                         </button>
@@ -63,9 +63,9 @@
                         <div class="d-flex align-items-center flex-grow-1">
                             <form action="/todo/update" method="post" >
                                 <input class="form-check-input me-3" type="checkbox" th:value="${item.TODO_SEQ}"
-                                 name="todoSeq" th:checked="${item.TODO_STATE == 1}" onchange="this.form.submit()">
+                                 name="todoSeq" onchange="this.form.submit()">
                             </form>
-                            <span th:text="${item.TODO_CONTENT}" th:class="${item.TODO_STATE == 1} ? 'completed' : ''">우유 사기</span>
+                            <span th:text="${item.TODO_CONTENT}"></span>
                         </div>
                         <form action="/todo/delete" method="post">
                             <input type="hidden" name="todoSeq" th:value="${item.TODO_SEQ}">
