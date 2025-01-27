@@ -5,13 +5,14 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
 
     private final TodoService todoService;
-
+    @GetMapping("/")
     public String home(Model model, HttpSession session) {
         Long userSeq = (Long) session.getAttribute("userSeq");  // 세션에서 사용자 정보 확인
 
