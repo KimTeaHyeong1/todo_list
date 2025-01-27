@@ -4,28 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.todo_list6.todo.TodoMapper">
-<insert id="insertTodo" parameterType="com.example.todo_list6.todo.VO.TodoVO">
-    INSERT INTO todo_list.todo (TODO_USER_SEQ, TODO_CONTENT)
-    VALUES (#{userSeq}, #{content})
-</insert>
 
-<select id="selectTodo" parameterType="Long" resultType="HashMap">
-    SELECT * FROM todo_list.TODO
-    WHERE TODO_USER_SEQ = #{userSeq}
-</select>
+    <!-- 할 일 추가 -->
+    <insert id="insertTodo" parameterType="com.example.todo_list6.todo.VO.TodoVO">
+        INSERT INTO todo_list.todo (TODO_USER_SEQ, TODO_CONTENT)
+        VALUES (#{userSeq}, #{content})
+    </insert>
 
-<delete id="deleteTodo" parameterType="Long">
-    DELETE FROM todo_list.todo
-    WHERE TODO_SEQ = #{todoSeq}
-</delete>
+    <!-- 사용자별 할 일 조회 -->
+    <select id="selectTodo" parameterType="Long" resultType="HashMap">
+        SELECT * FROM todo_list.TODO
+        WHERE TODO_USER_SEQ = #{userSeq}
+    </select>
 
-<update id="updateTodo" parameterType="Long">
-    UPDATE todo_list.todo
-    SET TODO_STATE = CASE
-        WHEN TODO_STATE = 1 THEN 0
-        WHEN TODO_STATE = 0 THEN 1
+    <!-- 할 일 삭제 -->
+    <delete id="deleteTodo" parameterType="Long">
+        DELETE FROM todo_list.todo
+        WHERE TODO_SEQ = #{todoSeq}
+    </delete>
+
+    <!-- 할 일 상태 변경 (완료/미완료) -->
+    <update id="updateTodo" parameterType="Long">
+        UPDATE todo_list.todo
+        SET TODO_STATE = CASE
+        WHEN TODO_STATE = 1 THEN 0  <!-- 완료 상태를 미완료로 변경 -->
+        WHEN TODO_STATE = 0 THEN 1  <!-- 미완료 상태를 완료로 변경 -->
         ELSE TODO_STATE
-    END
-    WHERE TODO_SEQ = #{todoSeq}
-</update>
+        END
+        WHERE TODO_SEQ = #{todoSeq}
+    </update>
+
 </mapper>

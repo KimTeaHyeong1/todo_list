@@ -4,15 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.todo_list6.user.UserMapper">
+
+    <!-- 사용자 로그인 정보 조회 -->
     <select id="selectUserByUserIdAndUserPw" parameterType="com.example.todo_list6.user.VO.UserVO" resultType="com.example.todo_list6.user.VO.UserVO">
         SELECT * FROM todo_list.USERS
         WHERE USER_ID = #{userId}
           AND USER_PW = #{userPw}
     </select>
 
-<insert id="insertUser" parameterType="com.example.todo_list6.user.VO.UserVO">
-    INSERT INTO todo_list.USERS(USER_NAME, USER_ID, USER_PW, USER_GENDER)
-    VALUES (#{userName}, #{userId}, #{userPw}, #{userGender})
-</insert>
+    <!-- 사용자 등록 -->
+    <insert id="insertUser" parameterType="com.example.todo_list6.user.VO.UserVO">
+        INSERT INTO todo_list.USERS(USER_NAME, USER_ID, USER_PW, USER_GENDER)
+        VALUES (#{userName}, #{userId}, #{userPw}, #{userGender})
+    </insert>
+
+    <!-- 사용자 정보 수정 -->
+    <update id="updateUser" parameterType="com.example.todo_list6.user.VO.UserVO">
+        UPDATE todo_list.USERS
+        SET
+        USER_PW = #{userPw},       <!-- 비밀번호 수정 -->
+        USER_NAME = #{userName},   <!-- 이름 수정 -->
+        USER_GENDER = #{userGender} <!-- 성별 수정 -->
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <!-- 사용자 삭제 -->
+    <delete id="deleteUser" parameterType="Long">
+        DELETE FROM todo_list.users
+        WHERE USER_SEQ = #{userSeq}
+    </delete>
 
 </mapper>
